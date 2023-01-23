@@ -16,11 +16,12 @@ return new class extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
             $table->string('image_url');
-            $table->boolean('authorized');
+            $table->unsignedBigInteger('authorized_by_user_id');
+            $table->foreign('authorized_by_user_id')->references('id')->on('users');
+            $table->timestamp('authorized_date');
             $table->string('title');
             $table->string('description');
-            $table->unsignedBigInteger('user_id')->nullable();
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreignId('user_id')->constrained()->nullable();
             $table->timestamps();
         });
     }
