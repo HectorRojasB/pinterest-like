@@ -1,0 +1,29 @@
+.header {
+    padding: 15px 41px;
+    background: $white;
+    box-shadow: $primary-shadow;
+
+    .actions {
+        gap: 12px;
+    }
+}
+
+.posts-container {
+    margin-top: 20px;
+
+    @media (min-width: 576px) {
+        columns: 2;
+    }
+
+    @media (min-width: 768px) {
+        columns: 3;
+    }
+
+    @media (min-width: 992px) {
+        columns: 4;
+    }
+
+    @media (min-width: 1200px) {
+        columns: 5;
+    }
+}
