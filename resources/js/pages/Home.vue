@@ -1,88 +1,12 @@
 <script setup>
+import { onMounted } from "vue";
+import { store } from "../utils/store";
 import Post from "../components/Post.vue";
+import { getPosts } from "../utils/apiRoutes";
 
-const dummyData = [
-    {
-        title: "Lorem ipsum",
-        description:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit,sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-        likes: 12,
-        image_url:
-            "https://images.pexels.com/photos/14211812/pexels-photo-14211812.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-    },
-    {
-        title: "Lorem ipsum",
-        description:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit,sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-        likes: 34,
-        image_url:
-            "https://images.pexels.com/photos/12859988/pexels-photo-12859988.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-    },
-    {
-        title: "Lorem ipsum",
-        description:
-            "Lorem ipsum dsfdfdfsadfaslkdjfhlaksjdhfl jashdflk jhasd lkfjh asdlkfjh asldkjfh asdlkjfha sldkfjh asdkljfh asdlfkjhasd flkjh sit amet, consectetur adipiscing elit,sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-        likes: 34,
-        image_url:
-            "https://images.pexels.com/photos/13855925/pexels-photo-13855925.jpeg",
-    },
-    {
-        title: "Lorem ipsum",
-        description:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit,sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-        likes: 34,
-        image_url:
-            "https://images.pexels.com/photos/15173511/pexels-photo-15173511.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-    },
-    {
-        title: "Lorem ipsum",
-        description:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit,sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-        likes: 12,
-        image_url:
-            "https://images.pexels.com/photos/14749507/pexels-photo-14749507.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-    },
-    {
-        title: "Lorem ipsum",
-        description:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit,sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-        likes: 34,
-        image_url:
-            "https://images.unsplash.com/photo-1526666923127-b2970f64b422?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2072&q=80",
-    },
-    {
-        title: "Lorem ipsum",
-        description:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit,sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-        likes: 12,
-        image_url:
-            "https://images.pexels.com/photos/14586378/pexels-photo-14586378.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-    },
-    {
-        title: "Lorem ipsum",
-        description:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit,sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-        likes: 34,
-        image_url:
-            "https://images.pexels.com/photos/14705131/pexels-photo-14705131.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-    },
-    {
-        title: "Lorem ipsum",
-        description:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit,sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-        likes: 12,
-        image_url:
-            "https://images.pexels.com/photos/15139464/pexels-photo-15139464.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-    },
-    {
-        title: "Lorem ipsum",
-        description:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit,sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-        likes: 34,
-        image_url:
-            "https://images.pexels.com/photos/14951951/pexels-photo-14951951.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-    },
-];
+onMounted(() => {
+    getPosts();
+});
 </script>
 
 <template>
@@ -99,11 +23,11 @@ const dummyData = [
         </div>
         <div class="container posts-container">
             <Post
-                v-for="(post, index) in dummyData"
-                :key="index"
+                v-for="post in store.posts.data"
+                :key="post.id"
                 :title="post.title"
                 :description="post.description"
-                :likes="post.likes"
+                likes="0"
                 :image_url="post.image_url"
             />
         </div>
