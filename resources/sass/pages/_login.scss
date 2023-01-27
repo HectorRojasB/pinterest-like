@@ -1,0 +1,14 @@
+.login-container {
+    margin-top: 30px;
+    padding: 12px 12px;
+    background: $white;
+    border-radius: 8px;
+
+    .switches-container {
+        .btn {
+            &:first-of-type {
+                margin-right: 12px;
+            }
+        }
+    }
+}

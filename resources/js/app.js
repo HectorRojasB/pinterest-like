@@ -2,6 +2,7 @@ import { createApp } from "vue";
 import App from "./App.vue";
 import Home from "./pages/Home.vue";
 import Upload from "./pages/Upload.vue";
+import Login from "./pages/Login.vue";
 import { createRouter, createWebHistory } from "vue-router";
 import "bootstrap";
 
@@ -10,6 +11,7 @@ const router = createRouter({
     routes: [
         { path: "/", name: "home", component: Home },
         { path: "/upload", name: "upload", component: Upload },
+        { path: "/login", name: "login", component: Login },
     ],
 });
 
