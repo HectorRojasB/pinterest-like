@@ -7,6 +7,7 @@
         <title>Pinterest</title>
 
         <!-- Fonts -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
         <link href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
         @vite(['resources/js/app.js','resources/sass/app.scss'])
     </head>

@@ -17,6 +17,7 @@
         "vue": "^3.2.37"
     },
     "dependencies": {
-        "@prettier/plugin-php": "github:prettier/plugin-php"
+        "@prettier/plugin-php": "github:prettier/plugin-php",
+        "vue-router": "^4.1.6"
     }
 }

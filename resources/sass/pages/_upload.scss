@@ -1,0 +1,27 @@
+.upload {
+    .upload-container {
+        margin-top: 30px;
+        padding: 12px 12px;
+        background: $white;
+        border-radius: 8px;
+
+        input[type="file"] {
+            display: none;
+        }
+
+        .preview {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+
+            .btn {
+                margin: 12px 0;
+            }
+
+            img {
+                max-width: 400px;
+                object-fit: contain;
+            }
+        }
+    }
+}
