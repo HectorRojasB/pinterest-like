@@ -4,10 +4,16 @@ import { store } from "../utils/store";
 import Post from "../components/Post.vue";
 import { getPosts } from "../utils/apiRoutes";
 import Navbar from "../components/Navbar.vue";
+import PostDetailModal from "../components/PostDetailModal.vue";
 
 onMounted(() => {
     getPosts();
 });
+
+const openModal = (post) => {
+    store.selectedPost = post;
+    store.postDetailModalOpen = true;
+};
 </script>
 
 <template>
@@ -15,6 +21,7 @@ onMounted(() => {
         <Navbar />
         <div class="container posts-container">
             <Post
+                @click="openModal(post)"
                 v-for="post in store.posts.data"
                 :key="post.id"
                 :title="post.title"
@@ -23,5 +30,7 @@ onMounted(() => {
                 :image_url="post.image_url"
             />
         </div>
+
+        <PostDetailModal v-if="store.postDetailModalOpen" />
     </div>
 </template>
