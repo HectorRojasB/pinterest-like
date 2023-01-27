@@ -10,7 +10,7 @@ import { logout } from "../utils/apiRoutes";
                 <h3>Pinterest-Like</h3>
             </a>
 
-            <div class="actions d-flex">
+            <div class="actions d-flex align-items-center">
                 <div v-if="Object.keys(store.loggedUser).length != 0">
                     {{ store.loggedUser.email }}
                 </div>

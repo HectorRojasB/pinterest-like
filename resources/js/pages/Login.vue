@@ -8,6 +8,7 @@ let name = ref("");
 let email = ref("");
 let password = ref("");
 let confirmPassword = ref("");
+let isAdmin = ref(false);
 
 const register = () => {
     let data = {
@@ -15,6 +16,7 @@ const register = () => {
         email: email.value,
         password: password.value,
         confirm_password: confirmPassword.value,
+        is_admin: isAdmin.value,
     };
     registerUser(data);
 };
@@ -121,7 +123,7 @@ const formLogin = () => {
                                 <input
                                     class="form-check-input me-3 mt-0"
                                     type="checkbox"
-                                    value=""
+                                    v-model="isAdmin"
                                     aria-label="Checkbox for following text input"
                                 />
                                 <label class="">Is admin</label>

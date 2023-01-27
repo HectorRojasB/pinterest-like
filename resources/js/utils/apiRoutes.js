@@ -13,14 +13,14 @@ export const postPosts = (formData) => {
             "Content-Type": "multipart/form-data",
         },
     };
-    return axios.post("/api/posts", formData, config).then((respose) => {
+    return axios.post("/posts", formData, config).then((respose) => {
         $("#modal").modal("show");
     });
 };
 
 export const registerUser = (data) => {
     return axios.post("/register", data).then((response) => {
-        //console.log(response);
+        window.location.href = "/";
     });
 };
 

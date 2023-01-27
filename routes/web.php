@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,3 +19,5 @@ Route::get("/{any}", function () {
 })->where("any", ".*");
 
 Auth::routes();
+
+Route::resource("posts", PostController::class);
