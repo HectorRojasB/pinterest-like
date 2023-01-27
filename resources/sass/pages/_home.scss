@@ -24,6 +24,8 @@
     }
 
     @media (min-width: 1200px) {
-        columns: 5;
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        grid-gap: 16px;
     }
 }

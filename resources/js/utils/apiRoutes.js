@@ -35,3 +35,9 @@ export const logout = () => {
         window.location.href = "/";
     });
 };
+
+export const getPostsByUser = (userId) => {
+    return axios.get(`/api/users/${userId}/posts`).then((respose) => {
+        store.posts = respose.data;
+    });
+};

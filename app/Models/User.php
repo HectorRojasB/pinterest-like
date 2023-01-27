@@ -18,7 +18,7 @@ class User extends Authenticatable
 
     public function posts()
     {
-        return $this->hasMany(Posts::class);
+        return $this->hasMany(Post::class);
     }
 
     public function favorites()

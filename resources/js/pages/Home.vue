@@ -2,12 +2,16 @@
 import { onMounted } from "vue";
 import { store } from "../utils/store";
 import Post from "../components/Post.vue";
-import { getPosts } from "../utils/apiRoutes";
+import { getPosts, getPostsByUser } from "../utils/apiRoutes";
 import Navbar from "../components/Navbar.vue";
 import PostDetailModal from "../components/PostDetailModal.vue";
 
 onMounted(() => {
-    getPosts();
+    if (Object.keys(store.loggedUser).length != 0) {
+        getPostsByUser(store.loggedUser.id);
+    } else {
+        getPosts();
+    }
 });
 
 const openModal = (post) => {
