@@ -21,11 +21,21 @@ class Post extends Model
         return $this->belongsToMany(User::class);
     }
 
+    public function favoritedBy()
+    {
+        return $this->belongsToMany(User::class, "favorites");
+    }
+
     public function scopeGetUnauthorized($query)
     {
         return $query
             ->where("authorized_by_user_id", null)
             ->where("authorized_date", null)
             ->get();
+    }
+
+    public function scopeIsUserFavorite($query, $user_id)
+    {
+        return $query->with("favorites")->where("user_id", $user_id);
     }
 }

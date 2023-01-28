@@ -2,8 +2,8 @@ import axios from "axios";
 import { store } from "./store";
 
 export const getPosts = () => {
-    return axios.get("/api/posts").then((respose) => {
-        store.posts = respose.data;
+    return axios.get("/api/posts").then((response) => {
+        store.posts = response.data.data;
     });
 };
 
@@ -37,7 +37,8 @@ export const logout = () => {
 };
 
 export const getPostsByUser = (userId) => {
-    return axios.get(`/api/users/${userId}/posts`).then((respose) => {
+    return axios.get(`/users/${userId}/posts`).then((response) => {
+        console.log(response);
         store.posts = respose.data;
     });
 };
@@ -51,5 +52,11 @@ export const getUnauthorizedPosts = () => {
 export const authorizePost = (postId) => {
     return axios.post(`/post/${postId}/authorize`).then((response) => {
         window.location.href = "/moderation";
+    });
+};
+
+export const addFavorite = (postId) => {
+    return axios.post(`/user/addFavorite/${postId}`).then((response) => {
+        //window.location.href = "/moderation";
     });
 };

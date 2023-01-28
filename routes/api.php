@@ -17,5 +17,4 @@ use App\Http\Controllers\UserController;
 */
 
 Route::resource("posts", PostController::class);
-Route::get("/users/{user}/posts", [UserController::class, "getPosts"]);
 Route::get("/getUnauthorizedPosts", [PostController::class, "getUnauthorized"]);

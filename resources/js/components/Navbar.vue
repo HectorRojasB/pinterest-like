@@ -1,5 +1,6 @@
 <script setup>
 import { store } from "../utils/store";
+import { isUserLogged } from "../utils/helpers";
 import { logout } from "../utils/apiRoutes";
 </script>
 
@@ -11,10 +12,7 @@ import { logout } from "../utils/apiRoutes";
             </a>
 
             <div class="actions d-flex align-items-center">
-                <div
-                    v-if="Object.keys(store.loggedUser).length != 0"
-                    class="d-flex"
-                >
+                <div v-if="isUserLogged()" class="d-flex">
                     {{ store.loggedUser.email }}
                     <p v-if="store.loggedUserRole == 'admin'">(Admin)</p>
                 </div>
@@ -25,7 +23,7 @@ import { logout } from "../utils/apiRoutes";
                 <a href="/upload" class="btn btn-secondary">Upload</a>
 
                 <button
-                    v-if="Object.keys(store.loggedUser).length != 0"
+                    v-if="isUserLogged()"
                     @click="logout"
                     class="btn btn-primary"
                 >

@@ -7,10 +7,18 @@ use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
+use App\Transformers\PostTransformer;
 use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
+    private $postTransformer;
+
+    function __construct(PostTransformer $postTransformer)
+    {
+        $this->postTransformer = $postTransformer;
+    }
+
     public function store(Request $request): JsonResponse
     {
         $post = Post::create([
@@ -22,10 +30,14 @@ class PostController extends Controller
         return response()->json(["message" => "POST_CREATED", "data" => $post]);
     }
 
-    public function index(): JsonResponse
+    public function index()
     {
         $posts = Post::all();
-        return response()->json(["data" => $posts]);
+        $response = fractal()
+            ->collection($posts)
+            ->transformWith(new PostTransformer());
+
+        return response()->json(["data" => $response]);
     }
 
     public function getUnauthorized(): JsonResponse
@@ -34,13 +46,13 @@ class PostController extends Controller
         return response()->json(["data" => $post->getUnauthorized()]);
     }
 
-    public function AuthorizedPost(Post $post)
+    public function AuthorizedPost(Post $post): JsonResponse
     {
         $post->update([
             "authorized_by_user_id" => Auth::user()->id,
             "authorized_date" => Carbon::now()->toDateString(),
         ]);
 
-        return $post;
+        return response()->json(["POST_AUTHORIZED", "data" => $post]);
     }
 }

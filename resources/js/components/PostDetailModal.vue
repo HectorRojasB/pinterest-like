@@ -1,5 +1,7 @@
 <script setup>
 import { store } from "../utils/store";
+import { isUserLogged } from "../utils/helpers";
+import { addFavorite } from "../utils/apiRoutes";
 const closeModal = () => {
     store.postDetailModalOpen = false;
     store.selectedPost = {};
@@ -17,6 +19,14 @@ const closeModal = () => {
             />
             <h2 class="mt-3">{{ store.selectedPost.title }}</h2>
             <p class="mt-2">{{ store.selectedPost.description }}</p>
+            <div v-if="isUserLogged()">
+                <button
+                    @click="addFavorite(store.selectedPost.id)"
+                    class="btn btn-primary"
+                >
+                    Add to Favorites
+                </button>
+            </div>
         </div>
     </div>
 </template>
