@@ -13,7 +13,8 @@
     
         <meta charset="UTF-8">
             @if (Auth::check()) 
-                <meta name="user" content="{{ Auth::user() }}">
+                <meta name="user" content="{{ Auth::user()}}">
+                <meta name="user-role" content="{{ Auth::user()->getRoleNames()->first()}}">
             @endif 
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         

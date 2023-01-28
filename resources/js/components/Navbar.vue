@@ -11,8 +11,15 @@ import { logout } from "../utils/apiRoutes";
             </a>
 
             <div class="actions d-flex align-items-center">
-                <div v-if="Object.keys(store.loggedUser).length != 0">
+                <div
+                    v-if="Object.keys(store.loggedUser).length != 0"
+                    class="d-flex"
+                >
                     {{ store.loggedUser.email }}
+                    <p v-if="store.loggedUserRole == 'admin'">(Admin)</p>
+                </div>
+                <div v-if="store.loggedUserRole == 'admin'">
+                    <a href="/moderation" class="btn btn-primary">Moderation</a>
                 </div>
                 <div class="btn btn-secondary">❤️ Favorites</div>
                 <a href="/upload" class="btn btn-secondary">Upload</a>

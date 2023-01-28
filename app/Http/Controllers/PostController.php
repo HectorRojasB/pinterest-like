@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
@@ -25,5 +26,21 @@ class PostController extends Controller
     {
         $posts = Post::all();
         return response()->json(["data" => $posts]);
+    }
+
+    public function getUnauthorized(): JsonResponse
+    {
+        $post = new Post();
+        return response()->json(["data" => $post->getUnauthorized()]);
+    }
+
+    public function AuthorizedPost(Post $post)
+    {
+        $post->update([
+            "authorized_by_user_id" => Auth::user()->id,
+            "authorized_date" => Carbon::now()->toDateString(),
+        ]);
+
+        return $post;
     }
 }

@@ -41,3 +41,15 @@ export const getPostsByUser = (userId) => {
         store.posts = respose.data;
     });
 };
+
+export const getUnauthorizedPosts = () => {
+    return axios.get("/api/getUnauthorizedPosts").then((response) => {
+        store.posts = response.data;
+    });
+};
+
+export const authorizePost = (postId) => {
+    return axios.post(`/post/${postId}/authorize`).then((response) => {
+        window.location.href = "/moderation";
+    });
+};

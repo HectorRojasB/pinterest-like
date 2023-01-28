@@ -21,3 +21,8 @@ Route::get("/{any}", function () {
 Auth::routes();
 
 Route::resource("posts", PostController::class);
+
+Route::post("/post/{post}/authorize", [
+    PostController::class,
+    "AuthorizedPost",
+]);

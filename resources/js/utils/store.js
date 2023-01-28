@@ -11,4 +11,9 @@ export const store = reactive({
                   .getAttribute("content")
           )
         : {},
+    loggedUserRole: document.querySelector("meta[name='user-role']")
+        ? document
+              .querySelector("meta[name='user-role']")
+              .getAttribute("content")
+        : "",
 });

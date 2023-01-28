@@ -20,4 +20,12 @@ class Post extends Model
     {
         return $this->belongsToMany(User::class);
     }
+
+    public function scopeGetUnauthorized($query)
+    {
+        return $query
+            ->where("authorized_by_user_id", null)
+            ->where("authorized_date", null)
+            ->get();
+    }
 }
