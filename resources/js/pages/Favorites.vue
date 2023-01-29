@@ -1,28 +1,20 @@
 <script setup>
+import store from "../store";
 import { onMounted } from "vue";
-import store from "../store/index";
-import Post from "../components/Post.vue";
+import { favorites } from "../utils/apiRoutes";
 import Navbar from "../components/Navbar.vue";
-import { isUserLogged } from "../utils/helpers";
-import { getPosts, getPostsByUser } from "../utils/apiRoutes";
+import Post from "../components/Post.vue";
 import PostDetailModal from "../components/PostDetailModal.vue";
-
 onMounted(() => {
-    if (isUserLogged()) {
-        getPostsByUser(store.state.loggedUser.id);
-    } else {
-        getPosts();
-    }
+    favorites();
 });
-
 const openModal = (post) => {
     store.commit("SET_SELECTED_POST", post);
     store.commit("SET_POST_DETAIL_MODAL_OPEN", true);
 };
 </script>
-
 <template>
-    <div class="home">
+    <div class="favorites">
         <Navbar />
         <div class="container posts-container">
             <Post

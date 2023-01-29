@@ -4,6 +4,7 @@ import Home from "../pages/Home.vue";
 import Upload from "../pages/Upload.vue";
 import Login from "../pages/Login.vue";
 import Moderation from "../pages/Moderation.vue";
+import Favorites from "../pages/Favorites.vue";
 
 export const router = createRouter({
     history: createWebHistory(),
@@ -12,5 +13,6 @@ export const router = createRouter({
         { path: "/upload", name: "upload", component: Upload },
         { path: "/login", name: "login", component: Login },
         { path: "/moderation", name: "moderation", component: Moderation },
+        { path: "/favorites", name: "favorites", component: Favorites },
     ],
 });

@@ -38,27 +38,6 @@ class UserController extends Controller
         return response()->json(["data" => $response]);
     }
 
-    public function addFavorite(Post $post): JsonResponse
-    {
-        $user = Auth::user();
-        $user->favorites()->sync([$post->id]);
-
-        return response()->json([
-            "message" => "POST_ADDED_TO_FAVORITES",
-            "data" => null,
-        ]);
-    }
-
-    public function removeFavorite(Post $post): JsonResponse
-    {
-        $user = Auth::user();
-        $user->favorites()->detach($post->id);
-
-        return response()->json([
-            "message" => "POST_REMOVIED_FROM_FAVORITES",
-            "data" => null,
-        ]);
-    }
 
     public function getFavorites(User $user)
     {

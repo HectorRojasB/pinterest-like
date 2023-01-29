@@ -70,7 +70,6 @@ export const createPosts = (formData) => {
 
 export const getUnauthorizedPosts = () => {
     return axios.get("/api/unauthorized/posts", headers).then((response) => {
-        console.log("ajskjs");
         store.commit("SET_POSTS", response.data.data);
     });
 };
@@ -83,10 +82,28 @@ export const authorizePost = (postId) => {
             router.push({ name: "moderation" });
         });
 };
-//Favorites
 
+//Favorites
 export const addFavorite = (postId) => {
-    return axios.post(`/user/addFavorite/${postId}`).then((response) => {
-        //window.location.href = "/moderation";
+    return axios.post(`/api/favorites/add/${postId}`, {}, headers).then(() => {
+        getPostsByUser(store.state.loggedUser.id);
+        router.push({ name: "home" });
+        store.commit("SET_POST_DETAIL_MODAL_OPEN", false);
+    });
+};
+
+export const removeFavorite = (postId) => {
+    return axios
+        .post(`/api/favorites/remove/${postId}`, {}, headers)
+        .then(() => {
+            getPostsByUser(store.state.loggedUser.id);
+            router.push({ name: "home" });
+            store.commit("SET_POST_DETAIL_MODAL_OPEN", false);
+        });
+};
+
+export const favorites = () => {
+    return axios.get("/api/favorites", headers).then((response) => {
+        store.commit("SET_POSTS", response.data.data);
     });
 };

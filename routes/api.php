@@ -39,4 +39,14 @@ Route::middleware("auth:api")->group(function () {
         PostController::class,
         "authorizePost",
     ]);
+
+    Route::post("/favorites/add/{post}", [
+        PostController::class,
+        "addFavorite",
+    ]);
+    Route::post("/favorites/remove/{post}", [
+        PostController::class,
+        "removeFavorite",
+    ]);
+    Route::get("/favorites", [PostController::class, "favorites"]);
 });

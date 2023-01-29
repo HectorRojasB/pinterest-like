@@ -25,7 +25,14 @@ import { isUserLogged } from "../utils/helpers";
                         Moderation
                     </button>
                 </div>
-                <div class="btn btn-secondary">❤️ Favorites</div>
+                <div v-if="isUserLogged()">
+                    <button
+                        @click="router.push({ name: 'favorites' })"
+                        class="btn btn-secondary"
+                    >
+                        ❤️ Favorites
+                    </button>
+                </div>
                 <button
                     @click="router.push({ name: 'upload' })"
                     class="btn btn-secondary"

@@ -62,4 +62,38 @@ class PostController extends Controller
             "data" => $post,
         ]);
     }
+
+    public function favorites(): JsonResponse
+    {
+        $favorites = auth()->user()->favorites;
+        $response = fractal()
+            ->collection($favorites)
+            ->transformWith(new PostTransformer());
+
+        return response()->json([
+            "data" => $response,
+        ]);
+    }
+
+    public function addFavorite(Post $post): JsonResponse
+    {
+        $user = auth()->user();
+        $user->favorites()->syncWithoutDetaching([$post->id]);
+
+        return response()->json([
+            "message" => "POST_ADDED_TO_FAVORITES",
+            "data" => null,
+        ]);
+    }
+
+    public function removeFavorite(Post $post): JsonResponse
+    {
+        $user = Auth::user();
+        $user->favorites()->detach($post->id);
+
+        return response()->json([
+            "message" => "POST_REMOVIED_FROM_FAVORITES",
+            "data" => null,
+        ]);
+    }
 }

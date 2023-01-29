@@ -1,7 +1,7 @@
 <script setup>
 import store from "../store";
 import { isUserLogged } from "../utils/helpers";
-import { addFavorite } from "../utils/apiRoutes";
+import { addFavorite, removeFavorite } from "../utils/apiRoutes";
 const closeModal = () => {
     store.commit("SET_SELECTED_POST", {});
     store.commit("SET_POST_DETAIL_MODAL_OPEN", false);
@@ -21,10 +21,18 @@ const closeModal = () => {
             <p class="mt-2">{{ store.state.selectedPost.description }}</p>
             <div v-if="isUserLogged()">
                 <button
+                    v-if="!store.state.selectedPost.is_logged_user_favorite"
                     @click="addFavorite(store.state.selectedPost.id)"
                     class="btn btn-primary"
                 >
                     Add to Favorites
+                </button>
+                <button
+                    v-else
+                    @click="removeFavorite(store.state.selectedPost.id)"
+                    class="btn btn-danger"
+                >
+                    Remove from favorites
                 </button>
             </div>
         </div>
