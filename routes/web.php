@@ -15,7 +15,11 @@ use App\Http\Controllers\UserController;
 |
 */
 
+Route::get("/{any}", function () {
+    return view("welcome");
+})->where("any", ".*");
 
+/*
 Auth::routes();
 
 Route::resource("posts", PostController::class);
@@ -24,7 +28,6 @@ Route::post("/post/{post}/authorize", [
     PostController::class,
     "AuthorizedPost",
 ]);
-Route::get("/users/{user}/posts", [UserController::class, "getPosts"]);
 
 Route::post("/user/addFavorite/{post}", [UserController::class, "addFavorite"]);
 Route::post("/user/removeFavorite/{post}", [
@@ -36,3 +39,4 @@ Route::get("/users/{user}/addTofavorites", [
     UserController::class,
     "AddFavorites",
 ]);
+*/

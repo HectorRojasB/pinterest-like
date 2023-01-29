@@ -1,10 +1,10 @@
 <script setup>
 import { onMounted } from "vue";
 import { getUnauthorizedPosts } from "../utils/apiRoutes";
-import { store } from "../utils/store";
 import Navbar from "../components/Navbar.vue";
 import Post from "../components/Post.vue";
 import PostDetailModal from "../components/PostDetailModal.vue";
+import store from "../store";
 
 onMounted(() => {
     getUnauthorizedPosts();
@@ -16,7 +16,7 @@ onMounted(() => {
         <div class="container posts-container">
             <Post
                 :id="post.id"
-                v-for="post in store.posts.data"
+                v-for="post in store.state.posts.data"
                 :key="post.id"
                 :title="post.title"
                 :description="post.description"
@@ -25,6 +25,6 @@ onMounted(() => {
                 :requiresAuthentication="true"
             />
         </div>
-        <PostDetailModal v-if="store.postDetailModalOpen" />
+        <PostDetailModal v-if="store.state.postDetailModalOpen" />
     </div>
 </template>

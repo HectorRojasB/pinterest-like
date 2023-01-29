@@ -1,7 +1,8 @@
 <script setup>
-import { store } from "../utils/store";
-import { isUserLogged } from "../utils/helpers";
+import store from "../store";
+import { router } from "../router";
 import { logout } from "../utils/apiRoutes";
+import { isUserLogged } from "../utils/helpers";
 </script>
 
 <template>
@@ -13,14 +14,24 @@ import { logout } from "../utils/apiRoutes";
 
             <div class="actions d-flex align-items-center">
                 <div v-if="isUserLogged()" class="d-flex">
-                    {{ store.loggedUser.email }}
-                    <p v-if="store.loggedUserRole == 'admin'">(Admin)</p>
+                    {{ store.state.loggedUser.email }}
+                    <p v-if="store.state.loggedUser.role == 'admin'">(Admin)</p>
                 </div>
-                <div v-if="store.loggedUserRole == 'admin'">
-                    <a href="/moderation" class="btn btn-primary">Moderation</a>
+                <div v-if="store.state.loggedUser.role == 'admin'">
+                    <button
+                        @click="router.push({ name: 'moderation' })"
+                        class="btn btn-primary"
+                    >
+                        Moderation
+                    </button>
                 </div>
                 <div class="btn btn-secondary">❤️ Favorites</div>
-                <a href="/upload" class="btn btn-secondary">Upload</a>
+                <button
+                    @click="router.push({ name: 'upload' })"
+                    class="btn btn-secondary"
+                >
+                    Upload
+                </button>
 
                 <button
                     v-if="isUserLogged()"
@@ -30,7 +41,13 @@ import { logout } from "../utils/apiRoutes";
                     logout
                 </button>
 
-                <a v-else href="/login" class="btn btn-primary">Login</a>
+                <button
+                    @click="router.push({ name: 'login' })"
+                    v-else
+                    class="btn btn-primary"
+                >
+                    Login
+                </button>
             </div>
         </div>
     </div>

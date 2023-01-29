@@ -7,13 +7,31 @@ use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
+use App\Transformers\UserTransformer;
 use App\Transformers\PostTransformer;
 
 class UserController extends Controller
 {
-    public function getPosts(User $user): JsonResponse
+    private $userTransformer;
+    private $postTransformer;
+
+    function __construct(
+        UserTransformer $userTransformer,
+        PostTransformer $postTransformer
+    ) {
+        $this->userTransformer = $userTransformer;
+        $this->postTransformer = $postTransformer;
+    }
+
+    public function getUser(Request $request): JsonResponse
     {
-        dd("sajhsha");
+        return response()->json([
+            "data" => $this->userTransformer->transform($request->user()),
+        ]);
+    }
+
+    public function getPosts(Request $request, User $user): JsonResponse
+    {
         $response = fractal()
             ->collection($user->posts)
             ->transformWith(new PostTransformer());

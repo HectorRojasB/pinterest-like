@@ -1,7 +1,7 @@
-import { store } from "./store";
+import store from "../store";
 
 const isUserLogged = () => {
-    return Object.keys(store.loggedUser).length != 0 ? true : false;
+    return Object.keys(store.state.loggedUser).length != 0 ? true : false;
 };
 
 export { isUserLogged };

@@ -1,32 +1,35 @@
 <script setup>
-import { onMounted } from "vue";
-import { store } from "../utils/store";
+import { computed, ref, onMounted } from "vue";
+import store from "../store/index";
+import { isUserLogged } from "../utils/helpers";
 import Post from "../components/Post.vue";
 import { getPosts, getPostsByUser } from "../utils/apiRoutes";
 import Navbar from "../components/Navbar.vue";
 import PostDetailModal from "../components/PostDetailModal.vue";
 
 onMounted(() => {
-    if (Object.keys(store.loggedUser).length != 0) {
-        getPostsByUser(store.loggedUser.id);
+    if (isUserLogged()) {
+        getPostsByUser(store.state.loggedUser.id);
     } else {
         getPosts();
     }
 });
 
 const openModal = (post) => {
-    store.selectedPost = post;
-    store.postDetailModalOpen = true;
+    store.commit("SET_SELECTED_POST", post);
+    store.commit("SET_POST_DETAIL_MODAL_OPEN", true);
 };
+const posts = computed(() => store.posts);
 </script>
 
 <template>
     <div class="home">
+        {{ posts }}
         <Navbar />
         <div class="container posts-container">
             <Post
                 @click="openModal(post)"
-                v-for="post in store.posts.data"
+                v-for="post in store.state.posts.data"
                 :key="post.id"
                 :title="post.title"
                 :description="post.description"
@@ -35,6 +38,6 @@ const openModal = (post) => {
             />
         </div>
 
-        <PostDetailModal v-if="store.postDetailModalOpen" />
+        <PostDetailModal v-if="store.state.postDetailModalOpen" />
     </div>
 </template>

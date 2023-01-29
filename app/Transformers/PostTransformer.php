@@ -9,7 +9,7 @@ use League\Fractal\TransformerAbstract;
 
 class PostTransformer extends TransformerAbstract
 {
-    public function transform(Post $post)
+    public function transform(Post $post, $request = null)
     {
         return [
             "id" => $post->id,
@@ -17,8 +17,10 @@ class PostTransformer extends TransformerAbstract
             "description" => $post->description,
             "image_url" => $post->image_url,
             "likes" => 0,
-            "is_logged_user_favorite" => Auth::user()
-                ? $post->isUserFavorite(Auth::user())
+            "is_logged_user_favorite" => auth()->user()
+                ? auth()
+                    ->user()
+                    ->hasFavorite($post->id)
                 : false,
         ];
     }

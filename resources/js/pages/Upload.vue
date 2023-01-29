@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from "vue";
 import Navbar from "../components/Navbar.vue";
-import { postPosts } from "../utils/apiRoutes";
+import { createPosts } from "../utils/apiRoutes";
 
 let title = ref("");
 let image = ref(null);
@@ -20,7 +20,7 @@ const submit = () => {
     formData.append("description", description.value);
     formData.append("image", image.value);
 
-    postPosts(formData);
+    createPosts(formData);
     resetForm();
 };
 

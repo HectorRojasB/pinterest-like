@@ -40,19 +40,26 @@ class PostController extends Controller
         return response()->json(["data" => $response]);
     }
 
-    public function getUnauthorized(): JsonResponse
+    public function unauthorizedPosts()
     {
         $post = new Post();
-        return response()->json(["data" => $post->getUnauthorized()]);
+        $response = fractal()
+            ->collection($post->getUnauthorized())
+            ->transformWith(new PostTransformer());
+
+        return response()->json(["data" => $response]);
     }
 
-    public function AuthorizedPost(Post $post): JsonResponse
+    public function authorizePost(Post $post): JsonResponse
     {
         $post->update([
-            "authorized_by_user_id" => Auth::user()->id,
+            "authorized_by_user_id" => auth()->user()->id,
             "authorized_date" => Carbon::now()->toDateString(),
         ]);
 
-        return response()->json(["POST_AUTHORIZED", "data" => $post]);
+        return response()->json([
+            "message" => "POST_AUTHORIZED",
+            "data" => $post,
+        ]);
     }
 }

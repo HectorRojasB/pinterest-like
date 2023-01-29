@@ -33,9 +33,4 @@ class Post extends Model
             ->where("authorized_date", null)
             ->get();
     }
-
-    public function scopeIsUserFavorite($query, $user_id)
-    {
-        return $query->with("favorites")->where("user_id", $user_id);
-    }
 }

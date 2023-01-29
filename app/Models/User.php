@@ -6,12 +6,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
+use Laravel\Passport\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasRoles;
+    use HasRoles, HasApiTokens;
 
     protected $fillable = ["name", "email", "password"];
     protected $hidden = ["password", "remember_token"];
@@ -24,5 +24,14 @@ class User extends Authenticatable
     public function favorites()
     {
         return $this->belongsToMany(Post::class, "favorites");
+    }
+
+    public function scopeHasFavorite($query, $post_id)
+    {
+        return $query
+            ->whereHas("favorites", function ($query) use ($post_id) {
+                $query->where("post_id", $post_id);
+            })
+            ->exists();
     }
 }
