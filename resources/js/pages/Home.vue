@@ -31,7 +31,7 @@ const openModal = (post) => {
                 :key="post.id"
                 :title="post.title"
                 :description="post.description"
-                :likes="0"
+                :likes="post.likes"
                 :image_url="post.image_url"
             />
         </div>

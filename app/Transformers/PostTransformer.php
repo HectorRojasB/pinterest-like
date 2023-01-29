@@ -16,7 +16,7 @@ class PostTransformer extends TransformerAbstract
             "title" => $post->title,
             "description" => $post->description,
             "image_url" => $post->image_url,
-            "likes" => 0,
+            "likes" => $post->favoritedBy->count(),
             "is_logged_user_favorite" => auth()->user()
                 ? auth()
                     ->user()
