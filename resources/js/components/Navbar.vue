@@ -27,6 +27,12 @@ import { isUserLogged } from "../utils/helpers";
                 </div>
                 <div v-if="isUserLogged()">
                     <button
+                        @click="router.push({ name: 'discover' })"
+                        class="btn btn-secondary me-2"
+                    >
+                        🌎 Discover
+                    </button>
+                    <button
                         @click="router.push({ name: 'favorites' })"
                         class="btn btn-secondary"
                     >
