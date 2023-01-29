@@ -3,7 +3,7 @@ import store from "../store";
 import { router } from "../router";
 
 //Authenticate User
-let headers = {
+const headers = {
     headers: {
         Accept: "application/json",
         Authorization: store.state.apiAccessToken,
