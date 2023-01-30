@@ -180,6 +180,43 @@ Response example:
 }
 ```
 
+### Users
+
+### Get
+
+Endpoint:
+
+```
+{{site_link}}/api/user
+```
+
+Method:
+
+```
+GET
+```
+
+Request headers:
+
+```javascript
+{
+    "Accept": "application/json",
+    "Authorization": "your-token"
+}
+```
+
+Response example:
+
+```javascript
+{
+    "data": {
+        "id": id,
+        "email": "email@some.com",
+        "role": "admin" || null
+    }
+}
+```
+
 ## Fronted
 
 ```
