@@ -22,8 +22,9 @@ const openModal = (post) => {
         <Navbar />
         <div class="container posts-container">
             <Post
-                @click="openModal(post)"
+                @click="(e) => !requiresModeration && openModal(post)"
                 v-for="post in store.state.posts"
+                :id="post.id"
                 :key="post.id"
                 :title="post.title"
                 :description="post.description"

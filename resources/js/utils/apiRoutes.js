@@ -87,6 +87,7 @@ export const getUnauthorizedPosts = () => {
         .get("/api/unauthorized/posts", { headers: loggedUserRequestHeaders() })
         .then((response) => {
             store.commit("SET_POSTS", response.data.data);
+            store.commit("SET_PAGINATION", response.data.meta.pagination);
         });
 };
 
@@ -137,5 +138,6 @@ export const favorites = () => {
         .get("/api/favorites", { headers: loggedUserRequestHeaders() })
         .then((response) => {
             store.commit("SET_POSTS", response.data.data);
+            store.commit("SET_PAGINATION", response.data.meta.pagination);
         });
 };
