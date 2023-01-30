@@ -30,6 +30,7 @@ class PostController extends Controller
             "image_url" => $request->image,
             "title" => $request->title,
             "description" => $request->description,
+            "user_id" => $request->user_id,
         ]);
 
         return response()->json(["message" => "POST_CREATED", "data" => $post]);

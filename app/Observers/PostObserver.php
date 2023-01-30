@@ -12,9 +12,9 @@ class PostObserver
     public function creating(Post $post)
     {
         $post->image_url = $this->storeImage($post->image_url);
-        $post->authorized_by_user_id = $this->isUserAuthorized();
-        $post->user_id = $this->isUserAuthorized();
-        $post->authorized_date = $this->isDateAuthorized();
+        $post->authorized_by_user_id = $this->isUserAuthorized($post->user_id);
+        $post->user_id = $this->isUserAuthorized($post->user_id);
+        $post->authorized_date = $this->isDateAuthorized($post->user_id);
     }
 
     public function storeImage($image)
@@ -26,14 +26,14 @@ class PostObserver
         return $path;
     }
 
-    public function isUserAuthorized()
+    public function isUserAuthorized($user_id)
     {
-        return Auth::user() ? Auth::user()->id : null;
+        return $user_id != "undefined" ? $user_id : null;
     }
 
-    public function isDateAuthorized()
+    public function isDateAuthorized($user_id)
     {
         $currentDate = Carbon::now()->toDateString();
-        return Auth::user() ? $currentDate : null;
+        return $user_id != "undefined" ? $currentDate : null;
     }
 }

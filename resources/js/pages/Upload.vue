@@ -1,6 +1,8 @@
 <script setup>
 import { ref } from "vue";
+import store from "../store";
 import Navbar from "../components/Navbar.vue";
+import { isUserLogged } from "../utils/helpers";
 import { createPosts } from "../utils/apiRoutes";
 
 let title = ref("");
@@ -19,6 +21,10 @@ const submit = () => {
     formData.append("title", title.value);
     formData.append("description", description.value);
     formData.append("image", image.value);
+    formData.append(
+        "user_id",
+        isUserLogged ? store.state.loggedUser.id : false
+    );
 
     createPosts(formData);
     resetForm();
