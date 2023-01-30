@@ -217,6 +217,258 @@ Response example:
 }
 ```
 
+### Posts
+
+### Get
+
+Endpoint:
+
+```
+{{site_link}}/api/posts/
+```
+
+Method:
+
+```
+GET
+```
+
+Query params:
+
+```javascript
+perPage = integer;
+```
+
+if not present, default value will be
+
+```javascript
+20;
+```
+
+Response example:
+
+```javascript
+{
+    "data": [
+        {
+            "id": id,
+            "title": "title",
+            "description": "description",
+            "image_url": image_url,
+            "likes": likes,
+            "is_logged_user_favorite": false
+        },
+    ]
+        "meta": {
+        "pagination": {
+            "total": totalPosts,
+            "count": postOnPage,
+            "per_page": postPerPage,
+            "current_page": currentPage,
+            "total_pages": total_likes,
+            "links": {
+                "next": url
+            }
+        }
+    }
+}
+```
+
+### Get By User
+
+Endpoint:
+
+```
+{{site_link}}/api/users/{userId}/posts
+```
+
+Method:
+
+```
+GET
+```
+
+Request headers:
+
+```javascript
+{
+    "Accept": "application/json",
+    "Authorization": "your-token"
+}
+```
+
+Response example:
+
+```javascript
+{
+    "data": [
+        {
+            "id": id,
+            "title": "title",
+            "description": "description",
+            "image_url": image_url,
+            "likes": likes,
+            "is_logged_user_favorite": false
+        },
+    ]
+        "meta": {
+        "pagination": {
+            "total": totalPosts,
+            "count": postOnPage,
+            "per_page": postPerPage,
+            "current_page": currentPage,
+            "total_pages": total_likes,
+            "links": {
+                "next": url
+            }
+        }
+    }
+}
+```
+
+### Create
+
+Endpoint:
+
+```
+{{site_link}}/api/posts
+```
+
+Method:
+
+```
+POST
+```
+
+Request headers:
+
+```javascript
+{
+    "Content-Type": "multipart/form-data",
+    "Accept": "application/json",
+    "Authorization": "your-token"
+}
+```
+
+Request body:
+
+```javascript
+{
+    "image": file,
+    "title": title,
+    "description": description
+}
+```
+
+Response example:
+
+```javascript
+{
+    "message": "POST_CREATED",
+    "data": {
+        "image_url": image_url,
+        "title": "title",
+        "description": "description",
+        "user_id": user_id || null ,
+        "authorized_by_user_id": user_id || null ,
+        "authorized_date": timestamp || null ,
+        "updated_at": timestamp,
+        "created_at": timestamp,
+        "id": id
+    }
+}
+```
+
+### Get Unauthorized
+
+Endpoint:
+
+```
+{{site_link}}/api/unauthorized/posts
+```
+
+Method:
+
+```
+GET
+```
+
+Request headers:
+
+```javascript
+{
+    "Accept": "application/json",
+    "Authorization": "your-token"
+}
+```
+
+```javascript
+{
+    "data": [
+        {
+            "id": id,
+            "title": "title",
+            "description": "description",
+            "image_url": image_url,
+            "likes": likes,
+            "is_logged_user_favorite": false
+        },
+    ]
+        "meta": {
+        "pagination": {
+            "total": totalPosts,
+            "count": postOnPage,
+            "per_page": postPerPage,
+            "current_page": currentPage,
+            "total_pages": total_likes,
+            "links": {
+                "next": url
+            }
+        }
+    }
+}
+```
+
+### Authorize post
+
+Endpoint:
+
+```
+{{site_link}}/api/authorize/posts/{postId}
+```
+
+Method:
+
+```
+POST
+```
+
+Request headers:
+
+```javascript
+{
+    "Accept": "application/json",
+    "Authorization": "your-token"
+}
+```
+
+```javascript
+{
+    "message": "POST_AUTHORIZED",
+    "data": {
+        "id": id,
+        "image_url": image_url,
+        "authorized_by_user_id": id,
+        "authorized_date": timestamp,
+        "title": title,
+        "description": description,
+        "user_id": user_id,
+        "created_at": timestamp,
+        "updated_at": timestamp
+    }
+}
+```
+
 ## Fronted
 
 ```
