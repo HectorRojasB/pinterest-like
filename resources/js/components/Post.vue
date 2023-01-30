@@ -1,4 +1,5 @@
 <script setup>
+import { ref } from "vue";
 import { authorizePost } from "../utils/apiRoutes";
 const props = defineProps({
     title: String,
@@ -8,10 +9,20 @@ const props = defineProps({
     requiresAuthentication: Boolean,
     id: Number,
 });
+
+const isLoaded = ref(false);
+
+const onImgLoad = () => {
+    isLoaded.value = true;
+};
 </script>
 <template>
     <div class="post">
-        <img class="image" :src="image_url" />
+        <div class="image-container">
+            <img class="image" :src="image_url" @load="onImgLoad" />
+            <div class="placeholder-image" :class="{ hidden: isLoaded }"></div>
+        </div>
+
         <div class="content">
             <div class="title">
                 {{ title }}
