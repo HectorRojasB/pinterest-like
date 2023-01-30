@@ -3,11 +3,12 @@ import createPersistedState from "vuex-persistedstate";
 
 const store = createStore({
     state: {
-        posts: {},
+        posts: [],
         postDetailModalOpen: false,
         selectedPost: {},
         apiAccessToken: "",
         loggedUser: {},
+        pagination: {},
     },
     getters: {
         apiAccessToken(state) {
@@ -25,6 +26,9 @@ const store = createStore({
         selectedPost(state) {
             return state.selectedPost;
         },
+        pagination(state) {
+            return state.pagination;
+        },
     },
     mutations: {
         SET_API_ACCES_TOKEN(state, value) {
@@ -41,6 +45,12 @@ const store = createStore({
         },
         SET_SELECTED_POST(state, value) {
             state.selectedPost = value;
+        },
+        SET_PAGINATION(state, value) {
+            state.pagination = value;
+        },
+        ADD_POSTS(state, value) {
+            state.posts = [...state.posts, ...value];
         },
     },
     actions: {},

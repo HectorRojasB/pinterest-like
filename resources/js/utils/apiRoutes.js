@@ -1,15 +1,9 @@
 import axios from "axios";
 import store from "../store";
 import { router } from "../router";
+import { loggedUserRequestHeaders } from "./helpers";
 
 //Authenticate User
-const headers = {
-    headers: {
-        Accept: "application/json",
-        Authorization: store.state.apiAccessToken,
-    },
-};
-
 export const login = (data) => {
     return axios.post("/api/login", data).then((response) => {
         store.commit(
@@ -21,11 +15,13 @@ export const login = (data) => {
 };
 
 export const logout = () => {
-    return axios.post("/api/logout", {}, headers).then(() => {
-        store.commit("SET_API_ACCES_TOKEN", "");
-        store.commit("SET_LOGGED_USER", {});
-        router.push({ name: "home" });
-    });
+    return axios
+        .post("/api/logout", {}, { headers: loggedUserRequestHeaders() })
+        .then(() => {
+            store.commit("SET_API_ACCES_TOKEN", "");
+            store.commit("SET_LOGGED_USER", {});
+            router.push({ name: "home" });
+        });
 };
 
 export const registerUser = (data) => {
@@ -37,10 +33,12 @@ export const registerUser = (data) => {
 //User
 
 export const getUser = () => {
-    return axios.get("/api/user", headers).then((response) => {
-        store.commit("SET_LOGGED_USER", response.data.data);
-        router.push({ name: "home" });
-    });
+    return axios
+        .get("/api/user", { headers: loggedUserRequestHeaders() })
+        .then((response) => {
+            store.commit("SET_LOGGED_USER", response.data.data);
+            router.push({ name: "home" });
+        });
 };
 
 //Posts
@@ -48,18 +46,31 @@ export const getUser = () => {
 export const getPosts = () => {
     return axios.get("/api/posts").then((response) => {
         store.commit("SET_POSTS", response.data.data);
+        store.commit("SET_PAGINATION", response.data.meta.pagination);
+    });
+};
+
+export const getPostsByPage = (url) => {
+    return axios.get(url).then((response) => {
+        store.commit("ADD_POSTS", response.data.data);
+        store.commit("SET_PAGINATION", response.data.meta.pagination);
     });
 };
 
 export const getPostsByUser = (userId) => {
-    return axios.get(`/api/users/${userId}/posts`, headers).then((response) => {
-        store.commit("SET_POSTS", response.data.data);
-    });
+    return axios
+        .get(`/api/users/${userId}/posts`, {
+            headers: loggedUserRequestHeaders(),
+        })
+        .then((response) => {
+            store.commit("SET_POSTS", response.data.data);
+            store.commit("SET_PAGINATION", response.data.meta.pagination);
+        });
 };
 
 export const createPosts = (formData) => {
     let config = {
-        header: {
+        headers: {
             "Content-Type": "multipart/form-data",
         },
     };
@@ -69,14 +80,20 @@ export const createPosts = (formData) => {
 };
 
 export const getUnauthorizedPosts = () => {
-    return axios.get("/api/unauthorized/posts", headers).then((response) => {
-        store.commit("SET_POSTS", response.data.data);
-    });
+    return axios
+        .get("/api/unauthorized/posts", { headers: loggedUserRequestHeaders() })
+        .then((response) => {
+            store.commit("SET_POSTS", response.data.data);
+        });
 };
 
 export const authorizePost = (postId) => {
     return axios
-        .post(`/api/authorize/posts/${postId}`, {}, headers)
+        .post(
+            `/api/authorize/posts/${postId}`,
+            {},
+            { headers: loggedUserRequestHeaders() }
+        )
         .then(() => {
             getUnauthorizedPosts();
             router.push({ name: "moderation" });
@@ -85,16 +102,26 @@ export const authorizePost = (postId) => {
 
 //Favorites
 export const addFavorite = (postId) => {
-    return axios.post(`/api/favorites/add/${postId}`, {}, headers).then(() => {
-        getPostsByUser(store.state.loggedUser.id);
-        router.push({ name: "home" });
-        store.commit("SET_POST_DETAIL_MODAL_OPEN", false);
-    });
+    return axios
+        .post(
+            `/api/favorites/add/${postId}`,
+            {},
+            { headers: loggedUserRequestHeaders() }
+        )
+        .then(() => {
+            getPostsByUser(store.state.loggedUser.id);
+            router.push({ name: "home" });
+            store.commit("SET_POST_DETAIL_MODAL_OPEN", false);
+        });
 };
 
 export const removeFavorite = (postId) => {
     return axios
-        .post(`/api/favorites/remove/${postId}`, {}, headers)
+        .post(
+            `/api/favorites/remove/${postId}`,
+            {},
+            { headers: loggedUserRequestHeaders() }
+        )
         .then(() => {
             getPostsByUser(store.state.loggedUser.id);
             router.push({ name: "home" });
@@ -103,7 +130,9 @@ export const removeFavorite = (postId) => {
 };
 
 export const favorites = () => {
-    return axios.get("/api/favorites", headers).then((response) => {
-        store.commit("SET_POSTS", response.data.data);
-    });
+    return axios
+        .get("/api/favorites", { headers: loggedUserRequestHeaders() })
+        .then((response) => {
+            store.commit("SET_POSTS", response.data.data);
+        });
 };

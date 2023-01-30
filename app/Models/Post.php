@@ -30,7 +30,6 @@ class Post extends Model
     {
         return $query
             ->where("authorized_by_user_id", null)
-            ->where("authorized_date", null)
-            ->get();
+            ->where("authorized_date", null);
     }
 }

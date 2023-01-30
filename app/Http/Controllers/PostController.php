@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use App\Models\Post;
+use App\Helpers\PostsHelper;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
@@ -12,11 +13,15 @@ use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
+    private $helper;
     private $postTransformer;
+    private $postsPerPage;
 
-    function __construct(PostTransformer $postTransformer)
+    function __construct(PostTransformer $postTransformer, PostsHelper $helper)
     {
         $this->postTransformer = $postTransformer;
+        $this->helper = $helper;
+        $this->postPerPage = 20;
     }
 
     public function store(Request $request): JsonResponse
@@ -32,22 +37,19 @@ class PostController extends Controller
 
     public function index()
     {
-        $posts = Post::all();
-        $response = fractal()
-            ->collection($posts)
-            ->transformWith(new PostTransformer());
-
-        return response()->json(["data" => $response]);
+        $postsPaginator = Post::orderBy("created_at", "desc")->paginate(
+            $this->postPerPage
+        );
+        return $this->helper->paginator($postsPaginator)->toArray();
     }
 
     public function unauthorizedPosts()
     {
         $post = new Post();
-        $response = fractal()
-            ->collection($post->getUnauthorized())
-            ->transformWith(new PostTransformer());
-
-        return response()->json(["data" => $response]);
+        $postsPaginator = $post
+            ->getUnauthorized()
+            ->paginate($this->postPerPage);
+        return $this->helper->paginator($postsPaginator)->toArray();
     }
 
     public function authorizePost(Post $post): JsonResponse
@@ -63,16 +65,13 @@ class PostController extends Controller
         ]);
     }
 
-    public function favorites(): JsonResponse
+    public function favorites()
     {
-        $favorites = auth()->user()->favorites;
-        $response = fractal()
-            ->collection($favorites)
-            ->transformWith(new PostTransformer());
-
-        return response()->json([
-            "data" => $response,
-        ]);
+        $favorites = auth()
+            ->user()
+            ->favorites();
+        $postsPaginator = $favorites->paginate($this->postPerPage);
+        return $this->helper->paginator($postsPaginator)->toArray();
     }
 
     public function addFavorite(Post $post): JsonResponse

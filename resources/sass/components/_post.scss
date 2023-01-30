@@ -1,10 +1,11 @@
 .post {
     width: 100%;
+    display: flex;
     background: $white;
     margin-bottom: 20px;
     break-inside: avoid;
     border-radius: 16px;
-    display: inline-block;
+    flex-direction: column;
     box-shadow: $primary-shadow;
     transition: all 0.3s ease-in-out;
 
