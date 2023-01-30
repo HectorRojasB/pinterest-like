@@ -1,9 +1,9 @@
 <script setup>
-import Modal from "./components/SuccesModal.vue";
+import Modals from "./components/Modals.vue";
 </script>
 <template>
     <div>
         <router-view />
-        <Modal />
+        <Modals />
     </div>
 </template>

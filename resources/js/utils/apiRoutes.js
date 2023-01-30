@@ -6,6 +6,9 @@ import { loggedUserRequestHeaders } from "./helpers";
 //Authenticate User
 export const login = (data) => {
     return axios.post("/api/login", data).then((response) => {
+        if (response.data.hasOwnProperty("error_code")) {
+            $("#login-error").modal("show");
+        }
         store.commit(
             "SET_API_ACCES_TOKEN",
             `${response.data.data.token_type} ${response.data.data.access_token}`
@@ -75,7 +78,7 @@ export const createPosts = (formData) => {
         },
     };
     return axios.post("/api/posts", formData, config).then(() => {
-        $("#modal").modal("show");
+        $("#post-creation").modal("show");
     });
 };
 

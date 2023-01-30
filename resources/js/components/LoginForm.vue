@@ -19,6 +19,7 @@ const formLogin = () => {
             <label>Email</label>
             <input
                 v-model="email"
+                required
                 class="form-control"
                 type="email"
                 placeholder="Your email"
@@ -28,6 +29,7 @@ const formLogin = () => {
             <label>Password</label>
             <input
                 v-model="password"
+                required
                 class="form-control"
                 type="password"
                 placeholder="Your password"
