@@ -182,6 +182,8 @@ Response example:
 
 ### Users
 
+---
+
 ### Get
 
 Endpoint:
@@ -218,6 +220,8 @@ Response example:
 ```
 
 ### Posts
+
+---
 
 ### Get
 
@@ -402,6 +406,8 @@ Request headers:
 }
 ```
 
+Response example:
+
 ```javascript
 {
     "data": [
@@ -452,6 +458,8 @@ Request headers:
 }
 ```
 
+Response example:
+
 ```javascript
 {
     "message": "POST_AUTHORIZED",
@@ -468,6 +476,126 @@ Request headers:
     }
 }
 ```
+
+### Favorites
+
+## Get
+
+Endpoint:
+
+```
+{{site_link}}/api/favorites
+```
+
+Method:
+
+```
+GET
+```
+
+Request headers:
+
+```javascript
+{
+    "Accept": "application/json",
+    "Authorization": "your-token"
+}
+```
+
+Response example:
+
+```javascript
+{
+    "data": [
+        {
+            "id": id,
+            "title": "title",
+            "description": "description",
+            "image_url": image_url,
+            "likes": likes,
+            "is_logged_user_favorite": false
+        },
+    ]
+        "meta": {
+        "pagination": {
+            "total": totalPosts,
+            "count": postOnPage,
+            "per_page": postPerPage,
+            "current_page": currentPage,
+            "total_pages": total_likes,
+            "links": {
+                "next": url
+            }
+        }
+    }
+}
+```
+
+## Add
+
+Endpoint:
+
+```
+{{site_link}}/api/favorites/add/{postId}
+```
+
+Method:
+
+```
+GET
+```
+
+Request headers:
+
+```javascript
+{
+    "Accept": "application/json",
+    "Authorization": "your-token"
+}
+```
+
+Response example:
+
+```javascript
+{
+    "message": "POST_ADDED_TO_FAVORITES",
+    "data": null
+}
+```
+
+## Remove
+
+Endpoint:
+
+```
+{{site_link}}/api/favorites/remove/{postId}
+```
+
+Method:
+
+```
+GET
+```
+
+Request headers:
+
+```javascript
+{
+    "Accept": "application/json",
+    "Authorization": "your-token"
+}
+```
+
+Response example:
+
+```javascript
+{
+    "message": "POST_REMOVIED_FROM_FAVORITES",
+    "data": null
+}
+```
+
+---
 
 ## Fronted
 
