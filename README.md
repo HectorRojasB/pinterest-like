@@ -47,18 +47,50 @@ DB_PASSWORD=your-password
 
 5. Run migrations `php artisan migrate `
 6. Run database seeders (to add dummy data) `php artisan db:seed `
-7. Update the `.env` file to include your AWS S3 config
+7. Run
 
 ```
+php artisan passport:install
+```
+
+This is the response:
+
+```
+Encryption keys generated successfully.
+Personal access client created successfully.
+Client ID: 1
+Client secret: personal-access-secret
+Password grant client created successfully.
+Client ID: 2
+Client secret: client-secret-password
+```
+
+Update the `.env` file with the following:
+
+```
+PASSPORT_LOGIN_ENDPOINT=your-site-url/oauth/token
+PASSPORT_CLIENT_ID=2
+PASSPORT_CLIENT_SECRET=client-secret-password
+```
+
+8. Update the `.env` file to include your AWS S3 config
+
+```
+
 AWS_ACCESS_KEY_ID=
 AWS_SECRET_ACCESS_KEY=
 AWS_DEFAULT_REGION=
 AWS_BUCKET=
 AWS_USE_PATH_STYLE_ENDPOINT=
+
 ```
-8. run 
+
+9. run
+
 ```
+
 npm run dev
+
 ```
 
 ## Usage 🎮
@@ -77,13 +109,17 @@ Create a variable `site_link`, for the value use your project's url
 Endpoint:
 
 ```
+
 {{site_link}}/api/login
+
 ```
 
 Method:
 
 ```
+
 POST
+
 ```
 
 Request body:
@@ -599,16 +635,16 @@ Response example:
 }
 ```
 
-
 ## Frontend
+
 ---
 
 ### Main Page
+
 ![Captura de pantalla 2023-01-30 a la(s) 18 29 11](https://user-images.githubusercontent.com/35705713/215631831-f3ade2ab-956d-4481-9a0f-e30530420b0b.png)
 
 This is main page where you can find all posts, click on post to open post detail modal
 ![Captura de pantalla 2023-01-30 a la(s) 19 01 12](https://user-images.githubusercontent.com/35705713/215632010-4eaa2a33-1716-463d-a30b-bb0cf23397f3.png)
-
 
 ### Register
 
@@ -617,6 +653,7 @@ This is main page where you can find all posts, click on post to open post detai
 Use form fields to register new user, all data is required, if user is admin use checkbox
 
 ### Login
+
 ![Captura de pantalla 2023-01-30 a la(s) 18 58 11](https://user-images.githubusercontent.com/35705713/215631504-e1e8f3f9-73ff-400e-9c0c-921f776d65aa.png)
 
 Use email and password if user was been register
@@ -625,12 +662,12 @@ if login fails, there will be a modal indicating the error
 
 ![Captura de pantalla 2023-01-30 a la(s) 18 43 17](https://user-images.githubusercontent.com/35705713/215632984-20e507b5-1c24-4006-b2aa-254d2a76024c.png)
 
-afer login, home page will show the posts created by the logged user 
+afer login, home page will show the posts created by the logged user
 ![Captura de pantalla 2023-01-30 a la(s) 18 50 07](https://user-images.githubusercontent.com/35705713/215632162-3ccae459-9798-46e1-8289-d27f9da1182d.png)
 
-
 ## Post Creation
-To create a new post, go to upload page 
+
+To create a new post, go to upload page
 ![Captura de pantalla 2023-01-30 a la(s) 18 29 25](https://user-images.githubusercontent.com/35705713/215633110-92c28940-243c-4ef7-943f-9970bba38ce7.png)
 
 after you choose an image, a preview will be shown
@@ -639,11 +676,11 @@ after you choose an image, a preview will be shown
 
 You can choose other image by clicking on the reset button
 
-once your post is created, a modal with a message will be displayed 
+once your post is created, a modal with a message will be displayed
 ![Captura de pantalla 2023-01-30 a la(s) 18 32 03](https://user-images.githubusercontent.com/35705713/215633336-f548e158-58e5-4480-85a4-f6cf44bbcab8.png)
 
-
 ## Favorites
+
 Only logged users can add/remove posts from favorites
 
 Click on post, then on add to favorites button
@@ -655,15 +692,14 @@ To remove from favorites, open detail modal and click on remove from favorites b
 
 All user's favorite posts will be displayed on the favorites page
 
-
-## Discover 
+## Discover
 
 Click on the discover page to get all posts(from other users)
 
 ![Captura de pantalla 2023-01-30 a la(s) 18 50 18](https://user-images.githubusercontent.com/35705713/215632713-16968215-2d68-4c13-8c1a-9a8ad6adcd36.png)
 
-
 ## Moderation
+
 (only for admin users
-click on moderation page to moderate the userless posts 
+click on moderation page to moderate the userless posts
 ![Captura de pantalla 2023-01-30 a la(s) 18 50 12](https://user-images.githubusercontent.com/35705713/215632853-f969b18b-e669-4e38-ba51-fc5de1a9f759.png)
