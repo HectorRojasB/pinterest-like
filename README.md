@@ -61,7 +61,7 @@ AWS_USE_PATH_STYLE_ENDPOINT=
 
 ## API
 
-Use this postman collection.
+Use [this](https://drive.google.com/file/d/1IU8WMydmby94jDfM10ZBa2tyzMaGHfOz/view?usp=sharing) postman collection.
 Create a variable `site_link`, for the value use your project's url
 
 ### Authentication
