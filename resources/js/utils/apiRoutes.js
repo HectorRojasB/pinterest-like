@@ -5,16 +5,18 @@ import { loggedUserRequestHeaders } from "./helpers";
 
 //Authenticate User
 export const login = (data) => {
-    return axios.post("/api/login", data).then((response) => {
-        if (response.data.hasOwnProperty("error_code")) {
+    return axios
+        .post("/api/login", data)
+        .then((response) => {
+            store.commit(
+                "SET_API_ACCES_TOKEN",
+                `${response.data.data.token_type} ${response.data.data.access_token}`
+            );
+            getUser();
+        })
+        .catch(() => {
             $("#login-error").modal("show");
-        }
-        store.commit(
-            "SET_API_ACCES_TOKEN",
-            `${response.data.data.token_type} ${response.data.data.access_token}`
-        );
-        getUser();
-    });
+        });
 };
 
 export const logout = () => {
